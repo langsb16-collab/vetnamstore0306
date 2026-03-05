@@ -1,0 +1,7 @@
+{
+  "name": "베트남 한인타운 -0305",
+  "description": "Vietnam Korean Small Business Community & Shop Promotion Platform",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
