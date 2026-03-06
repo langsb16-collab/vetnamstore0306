@@ -64,7 +64,7 @@ const Header = ({ onRegisterClick, onMedicalClick, onPhotoClick, activeTab, onTa
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => onTabChange('shops')}>
             <div className="w-10 h-10 bg-[#1428A0] rounded-xl flex items-center justify-center text-white font-bold text-xl">C</div>
-            <h1 className="text-xl font-bold text-[#1428A0] hidden sm:block">{t('title')}</h1>
+            <h1 className="text-xl font-bold text-[#1428A0] hidden sm:block">K & V Connect</h1>
           </div>
 
           <nav className="hidden md:flex items-center gap-1">
@@ -917,7 +917,7 @@ export default function App() {
           <div className="max-w-7xl mx-auto px-4 text-center">
             <div className="flex items-center justify-center gap-2 mb-6">
               <div className="w-8 h-8 bg-[#1428A0] rounded-lg flex items-center justify-center text-white font-bold">C</div>
-              <span className="text-lg font-bold text-[#1428A0]">C-Korea Connect</span>
+              <span className="text-lg font-bold text-[#1428A0]">K & V Connect</span>
             </div>
             <p className="text-sm text-gray-400 mb-8 max-w-md mx-auto">
               베트남 거주 한국인 소상공인을 위한 무료 홍보 플랫폼입니다. 
@@ -928,7 +928,7 @@ export default function App() {
               <a href="#" className="hover:text-[#1428A0]">Privacy</a>
               <a href="#" className="hover:text-[#1428A0]">Contact</a>
             </div>
-            <p className="text-[10px] text-gray-300 mt-12 uppercase tracking-widest">© 2026 C-Korea Connect. All rights reserved.</p>
+            <p className="text-[10px] text-gray-300 mt-12 uppercase tracking-widest">© 2026 K & V Connect. All rights reserved.</p>
           </div>
         </footer>
       </div>
