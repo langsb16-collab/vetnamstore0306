@@ -7,7 +7,7 @@ import {
   Globe, Phone, Video, Mic, Image as ImageIcon, Bot, ChevronDown,
   Activity, Camera
 } from 'lucide-react';
-import { io, Socket } from 'socket.io-client';
+// Socket.io removed for Cloudflare Pages
 import { Category, Shop, Message, Language } from './types';
 import { useLanguage } from './LanguageContext';
 import { translateText, getFAQResponse } from './services/geminiService';
@@ -509,31 +509,27 @@ const ChatWindow = ({ shop, onClose }: { shop: Shop, onClose: () => void }) => {
   const { t, language } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
-  const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    const s = io();
-    setSocket(s);
-    s.emit("join_shop", shop.id);
-    
-    s.on("chat_history", (history) => setMessages(history));
-    s.on("receive_message", (msg) => setMessages(prev => [...prev, msg]));
-
-    return () => { s.disconnect(); };
+    const saved = localStorage.getItem(`chat_${shop.id}`);
+    if (saved) setMessages(JSON.parse(saved));
   }, [shop.id]);
 
   const handleSend = async () => {
-    if (!input.trim() || !socket) return;
+    if (!input.trim()) return;
     
-    const targetLang = language === 'ko' ? 'Vietnamese' : 'Korean';
-    const translated = await translateText(input, targetLang);
-    
-    socket.emit("send_message", {
-      shopId: shop.id,
+    const newMessage = {
+      id: Date.now(),
+      shop_id: shop.id,
       sender: "User",
       text: input,
-      translatedText: translated
-    });
+      translated_text: input,
+      created_at: new Date().toISOString()
+    };
+    
+    const updated = [...messages, newMessage];
+    setMessages(updated);
+    localStorage.setItem(`chat_${shop.id}`, JSON.stringify(updated));
     setInput("");
   };
 
@@ -754,7 +750,7 @@ export default function App() {
                   animate={{ opacity: 1, y: 0 }}
                   className="text-4xl md:text-5xl font-extrabold text-[#1428A0] mb-4 tracking-tight"
                 >
-                  {t('title')}
+                  K & V Connect
                 </motion.h2>
                 <motion.p 
                   initial={{ opacity: 0, y: 20 }}
